@@ -45,18 +45,6 @@ router.get('/', async (req, res) => {
         }
         })
         
-        // router.get('/:breedId', (req, res, next) => {
-//     const {breedId} = req.params;
-//     if (breedId) {
-//         Dog.findOne({where: {id: breedId}, include: {model: Temperament}})
-//             .then((response) => res.send(response))
-//             .catch((err) => next(err));
-//     }
-// });
-
-// router.post('/', async (req, res) => {
-//     res.send('')
-// });
-
+        
 
 module.exports = router;
