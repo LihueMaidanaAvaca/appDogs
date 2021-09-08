@@ -12,10 +12,11 @@ router.get('/', async (req, res) => {
         const allDogs = response.data.map(dog =>{return {
             id: dog.id,
             name : dog.name,
-            height : dog.height,
+            height : dog.height.metric,
             weight : dog.weight,
             lifespan : dog.life_span,
-            temp : dog.temperament
+            temp : dog.temperament,
+            img: dog.image.url
         }});
         const dogs = allDogs.filter(dog => dog.name.toLowerCase().includes(name.toLowerCase()));
         const dballDogs = await Dog.findAll({
@@ -31,10 +32,11 @@ router.get('/', async (req, res) => {
             const allDogs = response.data.map(dog =>{return {
                 id: dog.id,
                 name : dog.name,
-                height : dog.height,
+                height : dog.height.metric,
                 weight : dog.weight,
                 lifespan : dog.life_span,
-                temp : dog.temperament
+                temp : dog.temperament,
+                img: dog.image.url
             }});
             const dballDogs = await Dog.findAll({include: {
                 model: Temperament,
@@ -45,6 +47,33 @@ router.get('/', async (req, res) => {
         }
         })
         
-        
+// router.post('/', async (req, res, next) => {
+
+//     const {name, height, weight, lifespan, temp, img} = req.body;
+//     try {
+//         let newDog = await Dog.create({
+//             name: name,
+//             weight: weight,
+//             height: height,
+//             lifespan: lifespan,
+//             img: img,
+//             created: 'true',
+//             });
+//         if (temp.length) {
+//             temp.map(async (tem) => {
+//                 try {
+//                     let temper = await Temperament.findOne({where: {name: tem}});
+//                     newDog.addTemperament(temper);
+//                 } catch (err) {
+//                     next(err);
+//                 }
+//             });
+//         }
+//         res.send('Dog Created!');
+//     } catch (err) {
+//         next(err);
+//     }
+//         });        
+
 
 module.exports = router;
