@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
             id: dog.id,
             name : dog.name,
             height : dog.height.metric,
-            weight : dog.weight,
+            weight : min = dog.weight.metric.split('-'),
             lifespan : dog.life_span,
             temp : dog.temperament,
             img: dog.image.url
@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
                 id: dog.id,
                 name : dog.name,
                 height : dog.height.metric,
-                weight : dog.weight,
+                weight : dog.weight.metric,
                 lifespan : dog.life_span,
                 temp : dog.temperament,
                 img: dog.image.url
@@ -47,33 +47,33 @@ router.get('/', async (req, res) => {
         }
         })
         
-// router.post('/', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
 
-//     const {name, height, weight, lifespan, temp, img} = req.body;
-//     try {
-//         let newDog = await Dog.create({
-//             name: name,
-//             weight: weight,
-//             height: height,
-//             lifespan: lifespan,
-//             img: img,
-//             created: 'true',
-//             });
-//         if (temp.length) {
-//             temp.map(async (tem) => {
-//                 try {
-//                     let temper = await Temperament.findOne({where: {name: tem}});
-//                     newDog.addTemperament(temper);
-//                 } catch (err) {
-//                     next(err);
-//                 }
-//             });
-//         }
-//         res.send('Dog Created!');
-//     } catch (err) {
-//         next(err);
-//     }
-//         });        
+    const {name, height, weight, lifespan, temp, img} = req.body;
+    try {
+        let newDog = await Dog.create({
+            name: name,
+            weight: weight,
+            height: height,
+            lifespan: lifespan,
+            img: img,
+            created: 'true',
+            });
+        if (temp.length) {
+            temp.map(async (tem) => {
+                try {
+                    let temper = await Temperament.findOne({where: {name: tem}});
+                    newDog.addTemperament(temper);
+                } catch (err) {
+                    next(err);
+                }
+            });
+        }
+        res.send('Dog Created!');
+    } catch (err) {
+        next(err);
+    }
+        });        
 
 
 module.exports = router;

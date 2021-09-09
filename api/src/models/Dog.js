@@ -6,18 +6,19 @@ module.exports = (sequelize) => {
     id : {
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    weight_min: {
-      type: DataTypes.INTEGER, 
+    weightmin: {
+      type: DataTypes.JSON, 
       allowNull: false
     },
-    weight_max: {
-      type: DataTypes.INTEGER, 
+    weightmax: {
+      type: DataTypes.JSON, 
       allowNull: false
     },
     height: {

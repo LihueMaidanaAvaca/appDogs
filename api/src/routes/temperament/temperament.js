@@ -1,11 +1,24 @@
 const router = require('express').Router();
-const {Temperament} = require('../db');
+const { response } = require('express');
+const {Temperament} = require('../../db');
 
 router.get('/', async (req, res, next) => {
-    Temperament.findAll({order: [['name', 'ASC']]})
-        .then((response) => res.send(response))
+    const {name}= req.query;
+    if(name){
 
-        .catch((err) => next(err));
+        const response = await axios('https://api.thedogapi.com/v1/breeds');
+    }
+    // Temperament.findAll({order: [['name', 'ASC']]})
+    //     .then((response) => res.send(response))
+
+    //     .catch((err) => next(err));
+    
+    // let temperament = await Temperament.findAll();
+    // console.log(temperament)
+    // if(temperament === []){
+        // traer todo de la apiiiiiiiiiii
+    // 
+    
 });
 
 module.exports = router;
