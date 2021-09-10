@@ -1,12 +1,14 @@
 import './App.css';
 import { Route } from 'react-router-dom';
-
+import {Home} from './components/home/Home.jsx'
 import React from 'react';
 
 function App() {
   return (
     <div className="App">
-      <h1>ADogMe</h1>
+      <Route exact path="/">
+        <Home />
+      </Route>
     </div>
   );
 }

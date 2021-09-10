@@ -6,10 +6,11 @@ const {Op} = require('sequelize')
 
 router.get('/', async (req, res) => {
     const {name}= req.query;
-    if(name){
+    
 
         const response = await axios('https://api.thedogapi.com/v1/breeds');
-        const allDogs = response.data.map(dog =>{return {
+        
+        const apiDogs = response.data.map(dog =>{return {
             id: dog.id,
             name : dog.name,
             height : dog.height.metric,
@@ -18,33 +19,16 @@ router.get('/', async (req, res) => {
             temp : dog.temperament,
             img: dog.image.url
         }});
-        const dogs = allDogs.filter(dog => dog.name.toLowerCase().includes(name.toLowerCase()));
-        const dballDogs = await Dog.findAll({
+        console.log(apiDogs[1])
+        const dataBaseDogs = await Dog.findAll({
             where:{name: {[Op.like]:`%${name}%`}},
             include: {
                 model: Temperament,
                 attributes : ['name']
             }})
-            const every = await Promise.all([dballDogs, dogs])
-            res.json(every)
-        }else{
-            const response = await axios('https://api.thedogapi.com/v1/breeds');
-            const allDogs = response.data.map(dog =>{return {
-                id: dog.id,
-                name : dog.name,
-                height : dog.height.metric,
-                weight : dog.weight.metric,
-                lifespan : dog.life_span,
-                temp : dog.temperament,
-                img: dog.image.url
-            }});
-            const dballDogs = await Dog.findAll({include: {
-                model: Temperament,
-                attributes : ['name']
-            }})
-            const every = await Promise.all([dballDogs, allDogs])
-            res.json(every) 
-        }
+            // const every = await Promise.all([dballDogs, dogs])
+            res.send(apiDogs)
+        
         })
         
 router.post('/', async (req, res, next) => {
