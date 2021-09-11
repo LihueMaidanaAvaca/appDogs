@@ -4,7 +4,9 @@
     width: 100vw;
     background: url(https://images8.alphacoders.com/106/1068709.jpg);
     background-repeat: no-repeat;
-    background-size: 1370px 700px;
+    /* background-size: 1370px 700px; */
+    background-size: cover;
+    background-position: center;
 }
 
 .items {
@@ -16,7 +18,7 @@
 }
 
 .title {
-    background-color: #0f210048;
+    /* background-color: #0f210048; */
     border-radius: 120px;
     font-size: 100px;
 }

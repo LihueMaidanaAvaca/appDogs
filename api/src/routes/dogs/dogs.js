@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
             img: dog.image.url
         }});
         
-        // console.log(apiDogs[7])
+        console.log(apiDogs[7])
                 
         const dataBaseDogs = await Dog.findAll({
             where:{name: {[Op.like]:`%${name}%`}},

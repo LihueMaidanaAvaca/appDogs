@@ -12,8 +12,9 @@ export function Home(){
 
        <div>
            {view === 'landing'? <Landing/> : null}
+           
        </div>
-        
+       
     )
     
 }
