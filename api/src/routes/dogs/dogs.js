@@ -10,21 +10,29 @@ router.get('/', async (req, res) => {
 
         const response = await axios('https://api.thedogapi.com/v1/breeds');
         
-        const apiDogs = response.data.map(dog =>{return {
+        const apiDogs = response.data.map(dog =>{
+            return {
             id: dog.id,
             name : dog.name,
             height : dog.height.metric,
-            weight : min = dog.weight.metric.split('-'),
+            weight : wht = dog.weight.metric.split('-'),
+            weightmin : ' '+wht[0],
+            weightmax : wht[1]+' ',
             lifespan : dog.life_span,
             temp : dog.temperament,
             img: dog.image.url
         }});
-        console.log(apiDogs[1])
+        
+        // console.log(apiDogs[7])
+                
         const dataBaseDogs = await Dog.findAll({
             where:{name: {[Op.like]:`%${name}%`}},
             include: {
                 model: Temperament,
-                attributes : ['name']
+                attributes : ['name'],
+                through: {
+                    attributes: [],
+                },
             }})
             // const every = await Promise.all([dballDogs, dogs])
             res.send(apiDogs)
