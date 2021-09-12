@@ -4,6 +4,7 @@ export const GET_DOGS = 'GET_DOGS'
 export function getDogs() {
     return async function(dispatch){
         var json = await axios ("http://localhost:3001/dogs");
+        console.log('action', json.data)
         return dispatch({
             type: GET_DOGS,
             payload: json.data

@@ -6,7 +6,7 @@ export default function Card({name, img}) {
         <div>
             <h3>{name}</h3>
             
-            <img src={img} alt="img not found" width="200px" height="250px" />
+            <img src={img} alt="img not found" width="200px" height="200px" />
         </div>
     )
 }

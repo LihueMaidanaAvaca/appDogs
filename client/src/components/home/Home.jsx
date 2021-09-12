@@ -1,19 +1,23 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 // import {Landing} from '../landing/Landing';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDogs } from '../../actions';
 import { Link } from 'react-router-dom';
-import Card from '../cards/Cards';
+import Card from '../card/Card';
+import s from './home.module.css'
 
 export function Home(){
     const dispatch= useDispatch()
-    const allDogs = useSelector((state) => state.dogs)
+    const allDogs = useSelector((state) => state.allDogs)
+    const [loading, setLoading] = useState(true)
     
-    
-    
+    console.log('home', allDogs)
     useEffect(()=>{
         dispatch(getDogs());
+        setLoading(false)
     },[dispatch])
+
+
 
     function handleClick(e){
         e.preventDefault();
@@ -41,16 +45,20 @@ export function Home(){
                    <option value= 'created'>ADOPTED</option>
                    <option value= 'api'>BREEDS</option>
                </select>
-               {allDogs?.map(dog=>{
+              <div className={`${s.cards}`} >
+
+               { !loading ? allDogs.map(dog=>{
+                   console.log('onedog', dog);
                    return (
-                      <fragment>
+                       <div key={dog.id}>
                           <Link to={"/home/" + dog.id }>
-                          <Card name={dog.name} image={dog.img}/>
+                          <Card name={dog.name} img={dog.img}/>
                           </Link>
-                      </fragment> 
+                      </div> 
                        );
-                  })
-               }
+                    }):<p>Loading...</p>
+                }
+                </div>
            </div>
        </div>
        
