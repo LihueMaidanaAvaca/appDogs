@@ -26,8 +26,8 @@ export function Home(){
     
     return(
        <div>
-           <Link to= '/dogs'>Adopt Dog</Link>
            <h1>ADOG ME</h1>
+           <Link to= '/dogs'>Adopt Dog</Link>
            <button onClick={e=> {handleClick(e)}}>
                Reload Dogs
            </button>
@@ -52,7 +52,8 @@ export function Home(){
                    return (
                        <div key={dog.id}>
                           <Link to={"/home/" + dog.id }>
-                          <Card name={dog.name} img={dog.img}/>
+                          <Card name={dog.name} img={dog.img} weightmin={dog.weightmin} 
+                          weightmax={dog.weightmax} temp={dog.temp}/>
                           </Link>
                       </div> 
                        );
