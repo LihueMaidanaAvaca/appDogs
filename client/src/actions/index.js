@@ -1,5 +1,6 @@
 import axios from 'axios';
 export const GET_DOGS = 'GET_DOGS'
+export const FILTER_BY_TEMP = 'FILTER_BY_TEMP'
 
 export function getDogs() {
     return async function(dispatch){
@@ -12,3 +13,9 @@ export function getDogs() {
     }
 }
 
+export function filterDogsByTemp(payload){
+    return {
+        type: FILTER_BY_TEMP,
+        payload
+    }
+}
