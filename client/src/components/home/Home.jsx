@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // import {Landing} from '../landing/Landing';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDogs,  filterDogsByTemp} from '../../actions';
+import { getDogs, filterDogsByTemp, filterCreated, orderByName} from '../../actions';
 import { Link } from 'react-router-dom';
 import Card from '../card/Card';
 import s from './home.module.css'
@@ -10,6 +10,7 @@ import Paginate from '../paginate/Paginate';
 export function Home(){
     const dispatch= useDispatch()
     const allDogs = useSelector((state) => state.allDogs)
+    const [orden, setOrden] = useState('')
     const [loading, setLoading] = useState(true)
     const [currentPage, setCurrentPage] = useState(1)
     const [dogsPerPage, setDogsPerPaga] = useState(8)
@@ -35,8 +36,19 @@ export function Home(){
         dispatch(getDogs());
     }
 
+    function handleSort(e){
+        e.preventDefault();
+        dispatch(orderByName(e.target.value))
+        setCurrentPage(1);
+        setOrden(`Ordered ${e.target.value}`)    
+    }
+
     function handleFilterTemp(e){
         dispatch(filterDogsByTemp(e.target.value))
+    }
+
+    function handleFilterCreated(e){
+        dispatch(filterCreated(e.target.value))
     }
 
     
@@ -48,7 +60,7 @@ export function Home(){
                Reload Dogs
            </button>
            <div>
-               <select>
+               <select onChange= {e => handleSort(e)}>
                    <option value= 'asd'>ASCENDING</option>
                    <option value= 'des'>DESCENDING</option>
                </select>
@@ -56,7 +68,7 @@ export function Home(){
                    <option value= 'allDogs'>ALL</option>
                    <option value= 'yaverequepongo'>temperamentos</option>
                </select>
-               <select>
+               <select onChange= {e => handleFilterCreated(e)}>
                    <option value= 'allDogs'>EVERYDOG</option>
                    <option value= 'created'>ADOPTED</option>
                    <option value= 'api'>BREEDS</option>
