@@ -1,4 +1,7 @@
 import React from "react";
+import styles from './Paginate.module.css'
+
+
 
 export default function Paginate ({dogsPerPage, allDogs, paginate}){
     const pageNumber= []
@@ -8,7 +11,7 @@ export default function Paginate ({dogsPerPage, allDogs, paginate}){
     }
     return(
         <nav>
-            <ul className='paginate'>
+            <ul className={`${styles.paginate}`}>
                 {pageNumber && pageNumber.map(num =>(
                     <div className='paginate' key={num}>
                     <div onClick={()=> paginate(num)}>{num}</div>

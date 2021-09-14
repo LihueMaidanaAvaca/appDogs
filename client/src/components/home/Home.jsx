@@ -7,7 +7,7 @@ import Card from '../card/Card';
 import Paginate from '../paginate/Paginate';
 import SearchBar from '../searchbar/SearchBar';
 import Adopt from '../adopt/Adopt';
-import s from './home.module.css'
+import styles from './home.module.css'
 
 
 export function Home(){
@@ -83,7 +83,7 @@ export function Home(){
                paginate= {paginate}
                />  
 
-              <div className={`${s.cards}`} >
+              <div className={`${styles.cards}`} >
 
                { !loading ? currentDogs.map(dog=>{
                    console.log('onedog', dog);
