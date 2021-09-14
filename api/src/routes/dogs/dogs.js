@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
             img: dog.image.url
         }});
         
-        console.log('perro8',apiDogs[7])
+        console.log('perro8',apiDogs[169])
                 
         const dataBaseDogs = await Dog.findAll({
             where:{name: {[Op.like]:`%${name}%`}},
@@ -41,13 +41,14 @@ router.get('/', async (req, res) => {
         
 router.post('/', async (req, res, next) => {
 
-    const {name, height, weightmin, weightmax, lifespan, temp, img} = req.body;
+    const {name, heightmin, heightmax, weightmin, weightmax, lifespan, temp, img} = req.body;
     try {
         let newDog = await Dog.create({
             name ,
+            heightmin ,
+            heightmax ,
             weightmin ,
             weightmax ,
-            height ,
             lifespan ,
             img ,
             created: 'true',

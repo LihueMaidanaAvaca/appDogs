@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDogs, filterDogsByTemp, filterCreated, orderByName} from '../../actions';
 import { Link } from 'react-router-dom';
 import Card from '../card/Card';
-import s from './home.module.css'
 import Paginate from '../paginate/Paginate';
+import SearchBar from '../searchbar/SearchBar';
+import Adopt from '../adopt/Adopt';
+import s from './home.module.css'
+
 
 export function Home(){
     const dispatch= useDispatch()
@@ -55,7 +58,7 @@ export function Home(){
     return(
        <div>
            <h1>ADOG ME</h1>
-           <Link to= '/dogs'>Adopt Dog</Link>
+           <Link to= '/adopt'>Adopt Dog</Link>
            <button onClick={e=> {handleClick(e)}}>
                Reload Dogs
            </button>
@@ -73,6 +76,7 @@ export function Home(){
                    <option value= 'created'>ADOPTED</option>
                    <option value= 'api'>BREEDS</option>
                </select>
+               <SearchBar/>
                <Paginate
                dogsPerPage= {dogsPerPage}
                allDogs={allDogs.length}

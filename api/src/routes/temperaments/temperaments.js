@@ -3,28 +3,30 @@ const { response } = require('express');
 const {Temperament} = require('../../db');
 const {default: axios} = require('axios');
 
-router.get('/temperament', async (req, res) => {
-    const apiTemp = await axios.get('https://api.thedogapi.com/v1/breeds');
-    const temps = apiTemp.data.map(dog => dog.Temperament);
-    const tempEach = temps.map(temp => {
-        if(temp !== null){
-            temp.split(', ');
-            return temp
-        }
-        tempEach.forEach(temp => {
-            Temperament.findOrCreate({
-                where: {name: temp}
-            })
-            
-        });
-        
-    })
+router.get('/temperaments', async (req, res) => {
+    
+    const response = await axios.get('https://api.thedogapi.com/v1/breeds/');
+                response.data.map((dog) => {
+                    if (dog.temperament) {
+                        let temp = dog.temperament.replace(/\s/g, '').split(',');
+                        temp.map(async (tem) => {
+                            await Temperament.findOrCreate({
+                                where: {name: tem},
+                                defaults: {
+                                    name: tem,
+                                },
+                            });
+                        });
+                    }
+                });
+    
+    
     const allTemperaments = await Temperament.findAll()
     console.log(temp)
-    res.send(apiTemp)
+    res.send(temp)
 });
 
-router.post('/temperament', async (req, res) =>{
+router.post('/temperaments', async (req, res) =>{
     let temperamentDB = await Temperament.findAll({
         where: {name : temp}
     })
