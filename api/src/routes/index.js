@@ -81,11 +81,12 @@ router.get('/temperaments', async (req, res)=>{
     const temperamentsUrl = await axios.get('https://api.thedogapi.com/v1/breeds')
     const temperamentsApi = temperamentsUrl.data.map(dog => {
         if(dog.temperament) {return dog.temperament.split(', ')}
-    if(!dog.temperamentl){return dog.temperament=['unknown']}})
+    if(!dog.temperamentl){return dog.temperament=['Unknown']}})
     console.log(temperamentsApi)
     const tempEach = temperamentsApi.map(temp => {
         for (let i = 0; i < temp.length; i++) return temp[i]})
         console.log(tempEach)
+        
     tempEach.forEach(tem => {
         Temperament.findOrCreate({
             where: { name: tem}
