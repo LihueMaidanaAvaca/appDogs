@@ -1,18 +1,21 @@
-import {GET_DOGS, FILTER_BY_TEMP, FILTER_CREATED, ORDER_BY_NAME, GET_BREED, } from '../actions';
+import {GET_DOGS, FILTER_BY_TEMP, FILTER_CREATED, ORDER_BY_NAME, GET_NAMEDOGS, } from '../actions';
 
 const initialState = {
     allDogs: [],
     everyDogs: [],
     detail: {},
     temperaments: [],
+    filterName: '',
    };
 
 export default function rootReducer(state = initialState, action) {
     switch (action.type) {
         case GET_DOGS:
-            return {...state, allDogs: action.payload, everyDogs: action.payload};
-        case GET_BREED:
-            return{...state, allDogs: action.payload}
+            return {...state,
+                 allDogs: action.payload,
+                 everyDogs: action.payload
+                };
+        
         case 'GET_TEMP':
               return{...state, temperaments: action.payload}
         case FILTER_BY_TEMP:
@@ -30,6 +33,13 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...state, allDogs: action.payload === 'allDogs' ? state.everyDogs : createdFilter
             }
+        // case SET_NAME:
+        // console.log('raza', action.payload) 
+        // return {
+        //         ...state,
+        //         filterName: action.payload
+        //     }
+
         case ORDER_BY_NAME:
             let sortedArr = action.payload === 'asd' ? state.allDogs.sort(function (a, b){
                 if(a.name > b.name){

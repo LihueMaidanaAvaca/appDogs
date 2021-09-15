@@ -15,15 +15,15 @@ router.get('/', async (req, res) => {
             id: dog.id,
             name : dog.name,
             height : dog.height.metric,
-            weight : wht = dog.weight.metric.split('-'),
+            weight : wht = dog.weight.metric?.split('-'),
             weightmin : ' '+wht[0],
             weightmax : wht[1]+' ',
             lifespan : dog.life_span,
-            temp : dog.temperament,
+            temp : dog.temperament?.split(', '),
             img: dog.image.url
         }});
         
-        console.log('perro8',apiDogs[169])
+        console.log('perro8',apiDogs[4])
                 
         const dataBaseDogs = await Dog.findAll({
             where:{name: {[Op.like]:`%${name}%`}},
