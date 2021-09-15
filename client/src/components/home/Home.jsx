@@ -90,8 +90,8 @@ export function Home(){
                    return (
                        <div key={dog.id}>
                           <Link to={"/home/" + dog.id }>
-                          <Card name={dog.name} img={dog.img} weightmin={dog.weightmin} 
-                          weightmax={dog.weightmax} temp={dog.temp.join(', ')}/>
+                          <Card name={dog.name} img={dog.image} weightmin={dog.weightmin} 
+                          weightmax={dog.weightmax} temp={dog.temperament?.join(', ')}/>
                           </Link>
                       </div> 
                        );
