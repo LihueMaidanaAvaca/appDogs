@@ -1,9 +1,9 @@
-import {GET_DOGS, FILTER_BY_TEMP, FILTER_CREATED, ORDER_BY_NAME, GET_NAMEDOGS, } from '../actions';
+import {GET_DOGS, FILTER_BY_TEMP, FILTER_CREATED, ORDER_BY_NAME, GET_NAMEDOGS, GET_TEMPERAMENTS, GET_DETAILS } from '../actions';
 
 const initialState = {
     allDogs: [],
     everyDogs: [],
-    detail: {},
+    detail: [],
     temperaments: [],
     filterName: '',
    };
@@ -16,8 +16,11 @@ export default function rootReducer(state = initialState, action) {
                  everyDogs: action.payload
                 };
         
-        case 'GET_TEMP':
-              return{...state, temperaments: action.payload}
+        case GET_TEMPERAMENTS:
+              return{
+                ...state, 
+                temperaments: action.payload
+            }
         case FILTER_BY_TEMP:
             const everyDogs = state.everyDogs
             const tempFiltered = action.payload === 'allDogs' ? everyDogs : everyDogs.filter(el => el.temp === action.payload)
@@ -29,16 +32,15 @@ export default function rootReducer(state = initialState, action) {
             }    
         case FILTER_CREATED:
             const everyDogs2 = state.everyDogs 
-            const createdFilter = action.payload === 'created' ? everyDogs2.filter(el => el.creted) : everyDogs2.filter(el => !el.created)   
+            const createdFilter = action.payload === 'created' ? everyDogs2.filter(el => el.created) : everyDogs2.filter(el => !el.created)   
             return {
                 ...state, allDogs: action.payload === 'allDogs' ? state.everyDogs : createdFilter
             }
-        // case SET_NAME:
-        // console.log('raza', action.payload) 
-        // return {
-        //         ...state,
-        //         filterName: action.payload
-        //     }
+        case GET_NAMEDOGS:
+            return{
+                ...state,
+                allDogs: action.payload
+            }
 
         case ORDER_BY_NAME:
             let sortedArr = action.payload === 'asd' ? state.allDogs.sort(function (a, b){
@@ -62,9 +64,14 @@ export default function rootReducer(state = initialState, action) {
             return{
                 ...state, allDogs: sortedArr
             }
+        case GET_DETAILS:
+            return{
+                ...state,
+                detail: action.payload
+            }
 
         default:
-            return {...state};
+            return state;
     }
 }
 

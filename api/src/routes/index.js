@@ -36,9 +36,12 @@ const getApiInfo = async () => {
             id: dog.id,
             name: dog.name,
             height: dog.height.metric,
-            weight: dog.weight.metric,
+            weight : wht = dog.weight.metric?.split('-'),
+            weightmin : ' '+wht[0],
+            weightmax : wht[1]+' ',
             lifespan: dog.life_span,
-            temperament: dog.temperament?.split(', '),
+            Temperaments: dog.temperament?.split(', ').map(t=> { 
+                return{ name: t}}),
             image: dog.image.url
         };
     });
@@ -49,7 +52,6 @@ const getDbInfo = async () => {
     return await Dog.findAll({
         include: {
             model: Temperament,
-            attributes: [],
             through: {
                 attributes: [],
             },
@@ -60,15 +62,18 @@ const getDbInfo = async () => {
 const getAllDogs = async () => {
     const apiInfo = await getApiInfo();
     const dbInfo = await getDbInfo();
-    const infoTotal = apiInfo.concat(dbInfo);
+    const infoTotal = dbInfo.concat(apiInfo);
     return infoTotal
 }
 
-router.get('/dogs', async (rep, res) => {
-    const name = rep.query.name
+router.get('/dogs', async (req, res) => {
+    const name = req.query.name
+    
     let dogsTotal = await getAllDogs();
     if(name){
-        let dogName = await dogsTotal.filter(dog => dog.name.toLowerCase().include(name.toLowerCase()))
+        console.log('acawachin',dogsTotal)
+        let dogName = await dogsTotal.filter(dog => dog.name.toLowerCase().includes(name.toLowerCase()))
+        
         dogName.length ?
         res.status(200).send(dogName) :
         res.status(404).send('eso noun peeerri papi.juju')
@@ -82,10 +87,10 @@ router.get('/temperaments', async (req, res)=>{
     const temperamentsApi = temperamentsUrl.data.map(dog => {
         if(dog.temperament) {return dog.temperament.split(', ')}
     if(!dog.temperamentl){return dog.temperament=['Unknown']}})
-    console.log(temperamentsApi)
+    
     const tempEach = temperamentsApi.map(temp => {
         for (let i = 0; i < temp.length; i++) return temp[i]})
-        console.log(tempEach)
+        
         
     tempEach.forEach(tem => {
         Temperament.findOrCreate({
@@ -96,7 +101,7 @@ router.get('/temperaments', async (req, res)=>{
     res.send(allTemperaments);    
 })
 
-router.post('/dogs', async (req, res) =>{
+router.post('/dog', async (req, res) =>{
     let{
         name,
         heightmin,
@@ -104,9 +109,9 @@ router.post('/dogs', async (req, res) =>{
         weightmin,
         weightmax,
         life_span,
-        img,
+        image,
         created,
-        temperament
+        temperaments
     } = req.body
 
     let dogCreated = await Dog.create({
@@ -116,15 +121,17 @@ router.post('/dogs', async (req, res) =>{
         weightmin,
         weightmax,
         life_span,
-        img,
+        image,
         created
     })
-
-    let temperamentDb = await Temperament.findAll({
-        where: { name : temperament}
-    })
-    dogCreated.addTemperament(temperamentDb)
-    res.send('DOG ADOPTED! :D')
+    
+    temperaments.map(async t=> {
+        let tDB = await Temperament.findOrCreate({
+            where: { name : t}
+        })
+        console.log('aca estas mas cerca del error', tDB)
+    dogCreated.addTemperament( tDB[0]) })
+    res.json(dogCreated)
 })
 
 router.get('/dogs/:id', async (req, res)=>{

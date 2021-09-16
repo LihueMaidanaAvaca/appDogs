@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import Card from '../card/Card';
 import Paginate from '../paginate/Paginate';
 import SearchBar from '../searchbar/SearchBar';
-import Adopt from '../adopt/Adopt';
 import styles from './home.module.css'
 
 
@@ -16,7 +15,7 @@ export function Home(){
     const [orden, setOrden] = useState('')
     const [loading, setLoading] = useState(true)
     const [currentPage, setCurrentPage] = useState(1)
-    const [dogsPerPage, setDogsPerPaga] = useState(8)
+    const [dogsPerPage, setDogsPerPage] = useState(8)
     const indexOfLastDog = currentPage * dogsPerPage
     const indexOfFirstDog = indexOfLastDog - dogsPerPage
     const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog)
@@ -76,12 +75,12 @@ export function Home(){
                    <option value= 'created'>ADOPTED</option>
                    <option value= 'api'>BREEDS</option>
                </select>
-               <SearchBar/>
                <Paginate
                dogsPerPage= {dogsPerPage}
                allDogs={allDogs.length}
                paginate= {paginate}
                />  
+               <SearchBar/>
 
               <div className={`${styles.cards}`} >
 
@@ -91,7 +90,7 @@ export function Home(){
                        <div key={dog.id}>
                           <Link to={"/home/" + dog.id }>
                           <Card name={dog.name} img={dog.image} weightmin={dog.weightmin} 
-                          weightmax={dog.weightmax} temp={dog.temperament?.join(', ')}/>
+                          weightmax={dog.weightmax} temp={dog.Temperaments}/>
                           </Link>
                       </div> 
                        );

@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {Home} from './components/home/Home.jsx';
 import React from 'react';
 import { Landing } from './components/landing/Landing';
-import { Adopt } from './components/adopt/Adopt';
+import  Adopt from './components/adopt/Adopt'
 
 function App() {
   return (

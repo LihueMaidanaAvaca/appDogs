@@ -1,11 +1,13 @@
 import axios from 'axios';
+import { bindActionCreators } from 'redux';
 export const GET_DOGS = 'GET_DOGS'
 export const FILTER_BY_TEMP = 'FILTER_BY_TEMP'
 export const FILTER_CREATED = 'FILTER_CREATED'
 export const ORDER_BY_NAME = 'ORDER_BY_NAME'
 export const GET_NAMEDOGS = 'GET_NAMEDOGS'
-export const GET_TEMPS = 'GET_TEMPS'
+export const GET_TEMPERAMENTS = 'GET_TEMPERAMENTS'
 export const SET_NAME = 'SET_NAME'
+export const GET_DETAILS = 'GET_DETAILS'
 
 export function getDogs() {
     return async function(dispatch){
@@ -19,10 +21,10 @@ export function getDogs() {
 }
 
 export function getNameDogs(name){
-    console.log('name', name)
+    
     return async function(dispatch){
         try{
-            var json = await axios("http://localhost.3001/dogs?name="+ name);
+            var json = await axios("http://localhost:3001/dogs?name="+name);
             return dispatch ({
                 type : GET_NAMEDOGS,
                 payload: json.data
@@ -42,13 +44,13 @@ export function setFilterName(name){
 }
 
 
-export function getTemps(){
+export function getTemperaments(){
     return async function (dispatch) {
-        var info = await axios("http://localhost.3001/temperaments", {
+        var info = await axios("http://localhost:3001/temperaments", {
 
         });
         return dispatch({ 
-            type: GET_TEMPS,
+            type: GET_TEMPERAMENTS,
             payload: info.data
         })
     }
@@ -56,7 +58,7 @@ export function getTemps(){
 
 export function postAdopted(payload){
     return async function(dispatch){
-        const response = await axios.post("http://localhost.3001/dogs", payload);
+        const response = await axios.post("http://localhost:3001/dog", payload);
         return response;
     }
 }
@@ -80,4 +82,18 @@ export function orderByName(payload){
         type: ORDER_BY_NAME,
         payload
     }
+}
+
+export function getDetail(id){
+   return async function(dispatch){
+       try{
+           var json = await axios.get("http://localhost:3001/dogs/dogs/"+id);
+           return dispatch({
+               type: GET_DETAILS,
+               payload: json.data
+           })
+       } catch(error){
+           console.log(error)
+       }
+   }
 }
