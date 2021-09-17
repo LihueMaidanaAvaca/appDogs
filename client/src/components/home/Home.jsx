@@ -55,7 +55,7 @@ export function Home(){
 
     
     return(
-       <div>
+       <div className={styles.div_render}>
            <h1>ADOG ME</h1>
            <Link to= '/adopt'>Adopt Dog</Link>
            <button onClick={e=> {handleClick(e)}}>
@@ -88,9 +88,10 @@ export function Home(){
                    console.log('onedog', dog);
                    return (
                        <div key={dog.id}>
-                          <Link to={"/home/" + dog.id }>
+                          <Link to={`/${dog.id}`}>
                           <Card name={dog.name} img={dog.image} weightmin={dog.weightmin} 
-                          weightmax={dog.weightmax} temp={dog.Temperaments}/>
+                          weightmax={dog.weightmax} temp={dog.Temperaments} id={dog.id}
+                          />
                           </Link>
                       </div> 
                        );

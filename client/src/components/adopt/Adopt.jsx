@@ -25,7 +25,7 @@ export default function Adopt(){
         weightmin: "",
         weightmax: "",
         life_span: "",
-        img:"",
+        image:"",
         temperaments: []
     })
     
@@ -107,7 +107,7 @@ export default function Adopt(){
                 </div>
                 <div>
                     <label>heightmax:</label>
-                    <input type= "number" value= {parseInt(input.heightmin)+parseInt(input.heightmax)} name= "heightmax" onChange={(e)=>handleChange(e)}/>
+                    <input type= "number" value= {(input.heightmax)} name= "heightmax" onChange={(e)=>handleChange(e)}/>
                 </div>
                 <div>
                     <label>weightmin:</label>
@@ -123,19 +123,21 @@ export default function Adopt(){
                 </div>
                 <div>
                     <label>Image:</label>
-                    <input type= "text" value= {input.image} name= "image"onChange={(e)=>handleChange(e)}/>
+                    <input type= "url" value= {input.image} name= "url" onChange={(e)=>handleChange(e)}/>
                 </div>
                 <select onChange={(e)=>handleSelect(e)}>
-                    {temperaments.map((tem)=>(
-                        <option name='temperaments' value={tem.name}>{tem.name}</option>
+                <option name='temp' key={'a'}>Temperaments</option>
+                    {temperaments.map((tem,i)=>(
+                        <option name='temperaments'key={i} value={tem.name}>{tem.name}</option>
                     ))}
                 </select>
-                <ul><li>{input.temperaments.map(el=> el +" ,")}</li></ul>
-                <button type='submit'>ADOPT!</button>
+                <ul><li>{input.temperaments.map(el=> el +", ")}</li></ul>
+                <button type='submit' >ADOPT!</button>
             </form>
-            {input.temperaments.map(el=>
-                <div className='divTem'>
+            {input.temperaments.map((el,i)=>
+                <div className='divTem'key={i}>
                     <p>{el}</p>
+                    {console.log('este es el imput', input)}
                     <button className="botonX" onClick={()=> handleDelete(el)}>x</button>
                     </div>
                     )}

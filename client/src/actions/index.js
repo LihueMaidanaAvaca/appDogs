@@ -87,7 +87,7 @@ export function orderByName(payload){
 export function getDetail(id){
    return async function(dispatch){
        try{
-           var json = await axios.get("http://localhost:3001/dogs/dogs/"+id);
+           var json = await axios.get("http://localhost:3001/dogs/"+id);
            return dispatch({
                type: GET_DETAILS,
                payload: json.data
