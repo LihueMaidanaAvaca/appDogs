@@ -132,6 +132,7 @@ export default function Adopt(){
                     ))}
                 </select>
                 <ul><li>{input.temperaments.map(el=> el +", ")}</li></ul>
+                
                 <button type='submit' >ADOPT!</button>
             </form>
             {input.temperaments.map((el,i)=>

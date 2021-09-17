@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // import {Landing} from '../landing/Landing';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDogs, filterDogsByTemp, filterCreated, orderByName} from '../../actions';
+import { getDogs, filterDogsByTemp, filterCreated, orderByName, getTemperaments} from '../../actions';
 import { Link } from 'react-router-dom';
 import Card from '../card/Card';
 import Paginate from '../paginate/Paginate';
@@ -19,7 +19,7 @@ export function Home(){
     const indexOfLastDog = currentPage * dogsPerPage
     const indexOfFirstDog = indexOfLastDog - dogsPerPage
     const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog)
-
+    const temperaments = useSelector((state) => state.temperaments)
     
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber)
@@ -53,6 +53,17 @@ export function Home(){
         dispatch(filterCreated(e.target.value))
     }
 
+    // function handleSelect(e){
+    //     setInput({
+    //         ...input,
+    //         temperaments: [...input.temperaments,e.target.value]
+    //     })
+    // }
+    
+    useEffect(() => {
+        dispatch(getTemperaments());
+    }, []);
+
     
     return(
        <div className={styles.div_render}>
@@ -66,10 +77,12 @@ export function Home(){
                    <option value= 'asd'>ASCENDING</option>
                    <option value= 'des'>DESCENDING</option>
                </select>
-               <select onChange= {e => handleFilterTemp(e)}>
-                   <option value= 'allDogs'>ALL</option>
-                   <option value= 'yaverequepongo'>temperamentos</option>
-               </select>
+               <select onChange={(e)=>handleFilterTemp(e)}>
+                    <option name='temp' key={'a'}>Temperaments</option>
+                    {temperaments.map((tem,i)=>(
+                        <option name='temperaments'key={i} value={tem.name}>{tem.name}</option>
+                    ))}
+                </select>
                <select onChange= {e => handleFilterCreated(e)}>
                    <option value= 'allDogs'>EVERYDOG</option>
                    <option value= 'created'>ADOPTED</option>
