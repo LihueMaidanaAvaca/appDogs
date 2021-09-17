@@ -29,8 +29,9 @@ export default function Detail(props){
                 myDog.length>0?
                 <div>
                     <h1>I'm {myDog[0].name} </h1>
-                    <img src={myDog[0].image}/>
-                    <h2></h2>
+                    <h2>weightmin:{myDog[0].weightmin} </h2>
+                    <h2>weightmax:{myDog[0].weightmax} </h2>
+                    <img src={myDog[0].image} width="200px" height="200px" />
 
                     </div> :<p>Loading...</p>
             }

@@ -57,11 +57,11 @@ export function getTemperaments(){
     }
 }
 
-export function postAdopted(payload){
-    return async function(dispatch){
+export async function postAdopted(payload){
+    
         const response = await axios.post("http://localhost:3001/dog", payload);
         return response;
-    }
+    
 }
 
 export function filterDogsByTemp(payload){

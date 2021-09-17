@@ -19,13 +19,15 @@ export default function rootReducer(state = initialState, action) {
         case GET_TEMPERAMENTS:
               return{
                 ...state, 
-                temperaments: action.payload                                            //.filter(dog => dog.Temperament.includes(name.toLowerCase()))
+                temperaments: action.payload                                          
             }
         case FILTER_BY_TEMP:
             const everyDogs = state.everyDogs
-            const tempFilter = action.payload === 'Temperaments' ? everyDogs : everyDogs.filter((dog )=> (dog.Temperaments.map(el=> el.name)) === action.payload)
+            const tempFilter = action.payload === 'Temperaments' ? everyDogs :  everyDogs.filter(dog => {const aux = dog.Temperaments?.map(temp=> temp.name);
+                if (aux?.includes(action.payload)) return dog;});
             
-            return {...state, everyDogs: tempFilter
+            
+            return {...state, allDogs: tempFilter
             }
         case "POST_ADOPTED":
             return {

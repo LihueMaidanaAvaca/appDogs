@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Card from '../card/Card';
 import Paginate from '../paginate/Paginate';
 import SearchBar from '../searchbar/SearchBar';
+import Loading from '../loading/Loading';
 import styles from './home.module.css'
 
 
@@ -75,10 +76,8 @@ export function Home(){
     return(
        <div className={styles.div_render}>
            <h1>ADOG ME</h1>
-           <Link to= '/adopt'>Adopt Dog</Link>
-           <button onClick={e=> {handleClick(e)}}>
-               Reload Dogs
-           </button>
+           <button className={styles.buttons}><Link to= '/adopt'>Adopt Dog</Link></button>
+           <button className={styles.buttons}onClick={e=> {handleClick(e)}}>Reload Dogs</button>
            <div>
                <select onChange= {e => handleSort(e)}>
                    <option value= 'asd'>ASCENDING</option>
@@ -99,12 +98,12 @@ export function Home(){
                    <option value= 'created'>ADOPTED</option>
                    <option value= 'api'>BREEDS</option>
                </select>
+               <SearchBar/>
                <Paginate
                dogsPerPage= {dogsPerPage}
                allDogs={allDogs.length}
                paginate= {paginate}
                />  
-               <SearchBar/>
 
               <div className={`${styles.cards}`} >
 

@@ -1,18 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import style from './Card.module.css'
 
 export default function Card({name, img, weightmin, weightmax, temp, id}) {
     return (
-        <div>
-            {/* <Link to={`/${id}`}> */}
-            <img src={img} alt="img not found" width="200px" height="200px" />
+        <div className={style.card}>
+            
+            <img src={img} alt="img not found" width="150px" height="150px" />
             <h3>{name}</h3>
-            <h5>{weightmin}{weightmax}</h5>
-            {console.log('aca esta temp', temp),
-                temp?.map(t=> <div key={t.name}>{t.name}</div>    )
-                
-            }
-            {/* </Link>            */}
+            <label>W min:{weightmin} max:{weightmax}</label>
+        
+            {temp?.map(t=> <div key={t.name}>{t.name}</div>)}
+           
         </div>
     )
 }

@@ -131,6 +131,7 @@ router.post('/dog', async (req, res) =>{
         })
         console.log('aca estas mas cerca del error', tDB)
     dogCreated.addTemperament( tDB[0]) })
+    console.log('esto y ya esta' ,dogCreated)
     res.json(dogCreated)
 })
 

@@ -57,8 +57,8 @@ export default function Adopt(){
     }
 
     function handleSubmit(e){
-        e.prevertDefault();
-        dispatch(postAdopted(input))
+        e.preventDefault();
+        postAdopted(input)
         alert("ADOGTED!!!")
         setInput({
             name: "",
