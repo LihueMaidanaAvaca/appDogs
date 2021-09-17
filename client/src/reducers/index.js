@@ -1,4 +1,4 @@
-import {GET_DOGS, FILTER_BY_TEMP, FILTER_CREATED, ORDER_BY_NAME, GET_NAMEDOGS, GET_TEMPERAMENTS, GET_DETAILS } from '../actions';
+import {GET_DOGS, FILTER_BY_TEMP, FILTER_CREATED, ORDER_BY_NAME, GET_NAMEDOGS, GET_TEMPERAMENTS, GET_DETAILS, ORDER_BYWEIGHT } from '../actions';
 
 const initialState = {
     allDogs: [],
@@ -19,12 +19,13 @@ export default function rootReducer(state = initialState, action) {
         case GET_TEMPERAMENTS:
               return{
                 ...state, 
-                temperaments: action.payload
+                temperaments: action.payload                                            //.filter(dog => dog.Temperament.includes(name.toLowerCase()))
             }
         case FILTER_BY_TEMP:
             const everyDogs = state.everyDogs
-            const tempFiltered = action.payload === 'allDogs' ? everyDogs : everyDogs.filter(el => el.temp === action.payload)
-            return {...state, allDogs: tempFiltered
+            const tempFilter = action.payload === 'Temperaments' ? everyDogs : everyDogs.filter((dog )=> (dog.Temperaments.map(el=> el.name)) === action.payload)
+            
+            return {...state, everyDogs: tempFilter
             }
         case "POST_ADOPTED":
             return {
@@ -64,6 +65,28 @@ export default function rootReducer(state = initialState, action) {
             return{
                 ...state, allDogs: sortedArr
             }
+            case ORDER_BYWEIGHT:
+                let sortedWArr = action.payload === 'asd' ? state.allDogs.sort(function (a, b){
+                    if(parseInt(a.weightmax) > parseInt(b.weightmax)){
+                        return -1;
+                    }
+                    if(parseInt(b.weightmax) > parseInt(a.weightmax)){
+                        return 1;
+                    }
+                    return 0;
+                }) :
+                state.allDogs.sort(function (a, b){
+                    if(parseInt(a.weightmin) < parseInt(b.weightmin)){
+                        return -1;
+                    }
+                    if(parseInt(b.weightmin) < parseInt(a.weightmin)){
+                        return 1;
+                    }
+                    return 0
+                })
+                return{
+                    ...state, allDogs: sortedWArr
+                }
         case GET_DETAILS:
             return{
                 ...state,

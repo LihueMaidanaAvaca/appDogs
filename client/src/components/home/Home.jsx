@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // import {Landing} from '../landing/Landing';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDogs, filterDogsByTemp, filterCreated, orderByName, getTemperaments} from '../../actions';
+import { getDogs, filterDogsByTemp, filterCreated, orderByName, getTemperaments, orderByWeight} from '../../actions';
 import { Link } from 'react-router-dom';
 import Card from '../card/Card';
 import Paginate from '../paginate/Paginate';
@@ -53,6 +53,13 @@ export function Home(){
         dispatch(filterCreated(e.target.value))
     }
 
+    function handleSortWeight(e){
+        e.preventDefault();
+        dispatch(orderByWeight(e.target.value))
+        setCurrentPage(1);
+        setOrden(`Ordered ${e.target.value}`)    
+    }
+
     // function handleSelect(e){
     //     setInput({
     //         ...input,
@@ -76,6 +83,10 @@ export function Home(){
                <select onChange= {e => handleSort(e)}>
                    <option value= 'asd'>ASCENDING</option>
                    <option value= 'des'>DESCENDING</option>
+               </select>
+               <select onChange= {e => handleSortWeight(e)}>
+                   <option value= 'des'>LIGHTER</option>
+                   <option value= 'asd'>HEAVIER</option>
                </select>
                <select onChange={(e)=>handleFilterTemp(e)}>
                     <option name='temp' key={'a'}>Temperaments</option>

@@ -8,6 +8,7 @@ export const GET_NAMEDOGS = 'GET_NAMEDOGS'
 export const GET_TEMPERAMENTS = 'GET_TEMPERAMENTS'
 export const SET_NAME = 'SET_NAME'
 export const GET_DETAILS = 'GET_DETAILS'
+export const ORDER_BYWEIGHT = 'ORDER_BYWEIGHT'
 
 export function getDogs() {
     return async function(dispatch){
@@ -80,6 +81,13 @@ export function filterCreated(payload){
 export function orderByName(payload){
     return{
         type: ORDER_BY_NAME,
+        payload
+    }
+}
+
+export function orderByWeight(payload){
+    return{
+        type: ORDER_BYWEIGHT,
         payload
     }
 }

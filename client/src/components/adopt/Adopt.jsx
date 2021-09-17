@@ -70,7 +70,7 @@ export default function Adopt(){
             image:"",
             temperaments: []
         })
-        history.push('/home')
+        // history.push('/home')
     }
 
     function handleDelete(el){
@@ -123,7 +123,7 @@ export default function Adopt(){
                 </div>
                 <div>
                     <label>Image:</label>
-                    <input type= "url" value= {input.image} name= "url" onChange={(e)=>handleChange(e)}/>
+                    <input type= "url" value= {input.image} name= "image" onChange={(e)=>handleChange(e)}/>
                 </div>
                 <select onChange={(e)=>handleSelect(e)}>
                 <option name='temp' key={'a'}>Temperaments</option>
